@@ -1,0 +1,287 @@
+{
+  "entities": {
+    "Customer": {
+      "title": "Customer",
+      "description": "A wholesale or retail rice buyer in the Baki Khata ledger.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated owner UID."
+        },
+        "name": {
+          "type": "string",
+          "description": "Customer or buyer name."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Customer phone number."
+        },
+        "shopAddress": {
+          "type": "string",
+          "description": "Shop name or address."
+        },
+        "openingBalance": {
+          "type": "number",
+          "description": "Initial Baki due balance carried over in BDT."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation (clients must submit FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update (clients must submit FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "name",
+        "phone",
+        "shopAddress",
+        "openingBalance",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LedgerTransaction": {
+      "title": "LedgerTransaction",
+      "description": "A rice sale or standalone payment received recorded in the business and customer ledger.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated owner UID."
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Customer document ID, or empty string for Walk-in Cash Customer."
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Display name of the customer or Walk-in Cash Customer."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["SALE", "PAYMENT"],
+          "description": "Transaction type: rice SALE or standalone PAYMENT."
+        },
+        "riceVariety": {
+          "type": "string",
+          "description": "Rice variety name (e.g., Miniket, Nazirshail, BR-28, Kataribhog)."
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["BAG", "KG"],
+          "description": "Unit of sale: BAG or KG."
+        },
+        "quantity": {
+          "type": "number",
+          "description": "Quantity sold in units."
+        },
+        "costPricePerUnit": {
+          "type": "number",
+          "description": "Purchase cost price per unit in BDT."
+        },
+        "sellingPricePerUnit": {
+          "type": "number",
+          "description": "Selling rate per unit in BDT."
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Total sale bill amount in BDT."
+        },
+        "paidAmount": {
+          "type": "number",
+          "description": "Amount paid in cash/bank in BDT."
+        },
+        "dueAdded": {
+          "type": "number",
+          "description": "Net due change added (or subtracted on payment) in BDT."
+        },
+        "grossProfit": {
+          "type": "number",
+          "description": "Gross profit from this sale in BDT."
+        },
+        "transactionDateMillis": {
+          "type": "integer",
+          "description": "Epoch milliseconds of the transaction date."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional transaction notes."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation (clients must submit FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update (clients must submit FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "customerId",
+        "customerName",
+        "type",
+        "riceVariety",
+        "unit",
+        "quantity",
+        "costPricePerUnit",
+        "sellingPricePerUnit",
+        "totalAmount",
+        "paidAmount",
+        "dueAdded",
+        "grossProfit",
+        "transactionDateMillis",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BusinessExpense": {
+      "title": "BusinessExpense",
+      "description": "Daily operational expense or monthly fixed overhead expense.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated owner UID."
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["DAILY", "MONTHLY"],
+          "description": "DAILY operational cost or MONTHLY fixed bill."
+        },
+        "category": {
+          "type": "string",
+          "description": "Expense category (Transport, Labor, Packaging, Staff Salary, Electricity Bill, Misc)."
+        },
+        "amount": {
+          "type": "number",
+          "description": "Expense amount in BDT."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional expense description or receipt note."
+        },
+        "expenseDateMillis": {
+          "type": "integer",
+          "description": "Epoch milliseconds of the expense date."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation (clients must submit FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update (clients must submit FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "frequency",
+        "category",
+        "amount",
+        "notes",
+        "expenseDateMillis",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "BankLoan": {
+      "title": "BankLoan",
+      "description": "Business bank loan with principal, annual interest rate (default 13%), and installment tracking.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated owner UID."
+        },
+        "lenderName": {
+          "type": "string",
+          "description": "Bank or financial institution name."
+        },
+        "principalAmount": {
+          "type": "number",
+          "description": "Original loan principal amount in BDT."
+        },
+        "annualInterestRate": {
+          "type": "number",
+          "description": "Annual interest percentage (default 13.0)."
+        },
+        "startDateMillis": {
+          "type": "integer",
+          "description": "Loan start date epoch milliseconds."
+        },
+        "paidInstallmentsCount": {
+          "type": "integer",
+          "description": "Number of installments paid so far."
+        },
+        "totalPrincipalRepaid": {
+          "type": "number",
+          "description": "Total principal repaid so far in BDT."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional loan terms or account note."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on creation (clients must submit FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp on last update (clients must submit FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "lenderName",
+        "principalAmount",
+        "annualInterestRate",
+        "startDateMillis",
+        "paidInstallmentsCount",
+        "totalPrincipalRepaid",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/customers/{customerId}": {
+      "schema": {
+        "$ref": "#/entities/Customer"
+      },
+      "description": "Customer Baki Khata profiles owned by the authenticated business owner."
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": {
+        "$ref": "#/entities/LedgerTransaction"
+      },
+      "description": "Rice sales and payment records owned by the authenticated business owner."
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": {
+        "$ref": "#/entities/BusinessExpense"
+      },
+      "description": "Daily operational and monthly fixed expenses owned by the authenticated business owner."
+    },
+    "/users/{userId}/loans/{loanId}": {
+      "schema": {
+        "$ref": "#/entities/BankLoan"
+      },
+      "description": "Bank loans and interest tracking owned by the authenticated business owner."
+    }
+  }
+}

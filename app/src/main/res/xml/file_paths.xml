@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path
+        name="khata_camera_cache"
+        path="khata_captures/" />
+    <cache-path
+        name="pdf_reports_cache"
+        path="pdf_reports/" />
+</paths>
